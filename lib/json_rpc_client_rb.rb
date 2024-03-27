@@ -28,4 +28,23 @@ module JsonRpcClientRb
 
     body["result"]
   end
+
+  def respond_to_missing?(*_args)
+    true
+  end
+
+  # example:
+  #   module MyClient
+  #     extend JsonRpcClientRb
+  #   end
+  #
+  #   MyClient.eth_getBlockByNumber('https://1rpc.io/eth', 'latest', false)
+  def method_missing(method, *args)
+    # check if the first argument is a url
+    url_regex = %r{^https?://}
+    raise "url format is not correct" unless args[0].match?(url_regex)
+
+    url = args[0]
+    json_rpc_request(url, method, args[1..])
+  end
 end
