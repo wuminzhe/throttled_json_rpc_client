@@ -2,11 +2,13 @@ PATH
   remote: .
   specs:
     json_rpc_client_rb (0.1.0)
+      redlock
 
 GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.2)
+    connection_pool (2.4.1)
     diff-lcs (1.5.1)
     json (2.7.1)
     language_server-protocol (3.17.0.3)
@@ -17,6 +19,10 @@ GEM
     racc (1.7.3)
     rainbow (3.1.1)
     rake (13.1.0)
+    redis-client (0.21.1)
+      connection_pool
+    redlock (2.0.6)
+      redis-client (>= 0.14.1, < 1.0.0)
     regexp_parser (2.9.0)
     rexml (3.2.6)
     rspec (3.13.0)

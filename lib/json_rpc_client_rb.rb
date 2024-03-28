@@ -4,6 +4,9 @@ require "net/http"
 require "json"
 require "uri"
 
+require_relative "limiter/distributed_rate_queue"
+require_relative "limiter/limiter"
+
 require_relative "json_rpc_client_rb/version"
 require_relative "json_rpc_client_rb/eth"
 
@@ -11,7 +14,7 @@ module JsonRpcClientRb
   class HttpError < StandardError; end
   class JSONRpcError < StandardError; end
 
-  def json_rpc_request(url, method, params)
+  def request(url, method, params)
     uri = URI.parse(url)
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = uri.scheme == "https"
@@ -29,22 +32,15 @@ module JsonRpcClientRb
     body["result"]
   end
 
-  def respond_to_missing?(*_args)
-    true
-  end
+  # ttl is in ms
+  # 10 requests/1s => 0.1s => 100ms
+  #  1 requests/5s =>   5s => 5000ms
+  def throttle(url:, ttl: 5000, &block)
+    lock_manager = Redlock::Client.new(["redis://127.0.0.1:73"])
 
-  # example:
-  #   module MyClient
-  #     extend JsonRpcClientRb
-  #   end
-  #
-  #   MyClient.eth_getBlockByNumber('https://1rpc.io/eth', 'latest', false)
-  def method_missing(method, *args)
-    # check if the first argument is a url
-    url_regex = %r{^https?://}
-    raise "url format is not correct" unless args[0].match?(url_regex)
-
-    url = args[0]
-    json_rpc_request(url, method, args[1..])
+    lock_manager.lock!("throttle_key:#{url}", ttl, &block)
+  rescue Redlock::LockError
+    # error handling
+    puts "throttle error"
   end
 end
