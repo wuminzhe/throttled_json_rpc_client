@@ -1,8 +1,29 @@
 # JsonRpcClientRb
 
-TODO: Delete this and the text below, and describe your gem
+```ruby
+rpc_url = "https://1rpc.io/eth"
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/json_rpc_client_rb`. To experiment with that code, run `bin/console` for an interactive prompt.
+# limit: 1request / 5s
+rate_queue = DistributedRateQueue.new(
+  redis_urls: ["redis://localhost:6379/2"],
+  key: "key:#{rpc_url}",
+  rate: 1,
+  interval: 5
+)
+
+eth = Limiter.new(
+  JsonRpcClientRb::Eth.new(rpc_url),
+  rate_queue
+)
+
+threads = []
+10.times do
+  threads << Thread.new do
+    p eth.block_number
+  end
+end
+threads.map(&:join)
+```
 
 ## Installation
 
