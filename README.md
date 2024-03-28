@@ -1,5 +1,16 @@
 # JsonRpcClientRb
 
+## example1
+```ruby
+rpc_url = "https://1rpc.io/eth"
+eth = JsonRpcClientRb::Eth.new(rpc_url)
+p eth.block_number
+```
+
+## example2, rate throttled
+> The rate limit on the server is called Rate Limiting, and the rate limit on the client is called Rate Throttling.
+
+This rate throttling can be used in multi-threaded, multi-process, multi-machine environments.
 ```ruby
 rpc_url = "https://1rpc.io/eth"
 
