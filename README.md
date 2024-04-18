@@ -1,8 +1,32 @@
 # ThrottledJsonRpcClient
 
-TODO: Delete this and the text below, and describe your gem
+## example1
+```ruby
+rpc_url = "https://1rpc.io/eth"
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/throttled_json_rpc_client`. To experiment with that code, run `bin/console` for an interactive prompt.
+eth = JsonRpcClient::Eth.new(rpc_url)
+
+p eth.block_number
+```
+
+## example2, rate throttled
+> The rate limit on the server is called Rate Limiting, and the rate limit on the client is called Rate Throttling.
+
+This rate throttling can be used in multi-threaded, multi-process, multi-machine environments.
+```ruby
+rpc_url = "https://1rpc.io/eth"
+
+eth = ThrottledJsonRpcClient::Eth.new(rpc_url)
+
+threads = []
+10.times do
+  threads << Thread.new do
+    p eth.block_number
+  end
+end
+threads.map(&:join)
+
+```
 
 ## Installation
 

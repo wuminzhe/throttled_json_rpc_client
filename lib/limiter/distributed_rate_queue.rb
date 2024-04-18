@@ -12,7 +12,7 @@ class DistributedRateQueue
 
   def shift(&block)
     if lock_manager.lock(key, lock_duration)
-      puts "timestamp: #{Time.now.to_i}"
+      # puts "timestamp: #{Time.now.to_i}"
       yield
     else
       # Logger.log("Lock not acquired, waiting for next turn...", Process.pid)
