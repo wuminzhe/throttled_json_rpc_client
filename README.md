@@ -1,5 +1,19 @@
 # ThrottledJsonRpcClient
 
+Use the way from this article: https://medium.com/@jaimersonn/throttling-api-calls-in-a-distributed-environment-76d2789a796d
+
+## Installation
+
+Install the gem and add to the application's Gemfile by executing:
+
+    $ bundle add throttled_json_rpc_client
+
+If bundler is not being used to manage dependencies, install the gem by executing:
+
+    $ gem install throttled_json_rpc_client
+
+## Usage
+
 ## example1, without rate throttling
 ```ruby
 rpc_url = "https://1rpc.io/eth"
@@ -26,24 +40,7 @@ threads = []
   end
 end
 threads.map(&:join)
-
 ```
-
-## Installation
-
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
-
-Install the gem and add to the application's Gemfile by executing:
-
-    $ bundle add UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
-
-If bundler is not being used to manage dependencies, install the gem by executing:
-
-    $ gem install UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
-
-## Usage
-
-TODO: Write usage instructions here
 
 ## Development
 
@@ -53,7 +50,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/throttled_json_rpc_client. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/throttled_json_rpc_client/blob/main/CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on GitHub at https://github.com/wuminzhe/throttled_json_rpc_client. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/wuminzhe/throttled_json_rpc_client/blob/main/CODE_OF_CONDUCT.md).
 
 ## License
 
@@ -61,4 +58,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the ThrottledJsonRpcClient project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/throttled_json_rpc_client/blob/main/CODE_OF_CONDUCT.md).
+Everyone interacting in the ThrottledJsonRpcClient project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/wuminzhe/throttled_json_rpc_client/blob/main/CODE_OF_CONDUCT.md).
