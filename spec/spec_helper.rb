@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "json_rpc_client_rb"
+require "throttled_json_rpc_client"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

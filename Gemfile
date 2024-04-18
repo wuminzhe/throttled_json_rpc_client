@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-# Specify your gem's dependencies in json_rpc_client_rb.gemspec
+# Specify your gem's dependencies in throttled_json_rpc_client.gemspec
 gemspec
 
 gem "rake", "~> 13.0"

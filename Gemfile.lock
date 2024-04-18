@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    json_rpc_client_rb (0.1.0)
+    throttled_json_rpc_client (0.1.0)
       redlock
 
 GEM
@@ -59,10 +59,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  json_rpc_client_rb!
   rake (~> 13.0)
   rspec (~> 3.0)
   rubocop (~> 1.21)
+  throttled_json_rpc_client!
 
 BUNDLED WITH
    2.5.3

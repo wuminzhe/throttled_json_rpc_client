@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-require_relative "lib/json_rpc_client_rb/version"
+require_relative "lib/throttled_json_rpc_client/version"
 
 Gem::Specification.new do |spec|
-  spec.name = "json_rpc_client_rb"
-  spec.version = JsonRpcClientRb::VERSION
+  spec.name = "throttled_json_rpc_client"
+  spec.version = ThrottledJsonRpcClient::VERSION
   spec.authors = ["Aki Wu"]
   spec.email = ["wuminzhe@gmail.com"]
 
-  spec.summary = "json_rpc_client_rb"
-  spec.description = "json_rpc_client_rb"
-  spec.homepage = "https://github.com/wuminzhe/json_rpc_client_rb"
+  spec.summary = "throttled_json_rpc_client"
+  spec.description = "throttled_json_rpc_client"
+  spec.homepage = "https://github.com/wuminzhe/throttled_json_rpc_client"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 2.6.0"
 

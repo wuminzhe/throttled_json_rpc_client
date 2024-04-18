@@ -1,9 +1,11 @@
-# JsonRpcClientRb
+# ThrottledJsonRpcClient
 
 ## example1
 ```ruby
 rpc_url = "https://1rpc.io/eth"
-eth = JsonRpcClientRb::Eth.new(rpc_url)
+
+eth = JsonRpcClient::Eth.new(rpc_url)
+
 p eth.block_number
 ```
 
@@ -14,18 +16,7 @@ This rate throttling can be used in multi-threaded, multi-process, multi-machine
 ```ruby
 rpc_url = "https://1rpc.io/eth"
 
-# limit: 1request / 5s
-rate_queue = DistributedRateQueue.new(
-  redis_urls: ["redis://localhost:6379/2"],
-  key: "key:#{rpc_url}",
-  rate: 1,
-  interval: 5
-)
-
-eth = Limiter.new(
-  JsonRpcClientRb::Eth.new(rpc_url),
-  rate_queue
-)
+eth = ThrottledJsonRpcClient::Eth.new(rpc_url)
 
 threads = []
 10.times do
@@ -34,6 +25,7 @@ threads = []
   end
 end
 threads.map(&:join)
+
 ```
 
 ## Installation
@@ -60,7 +52,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/json_rpc_client_rb. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/json_rpc_client_rb/blob/main/CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/throttled_json_rpc_client. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/throttled_json_rpc_client/blob/main/CODE_OF_CONDUCT.md).
 
 ## License
 
@@ -68,4 +60,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the JsonRpcClientRb project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/json_rpc_client_rb/blob/main/CODE_OF_CONDUCT.md).
+Everyone interacting in the ThrottledJsonRpcClient project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/throttled_json_rpc_client/blob/main/CODE_OF_CONDUCT.md).
