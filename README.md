@@ -1,6 +1,6 @@
 # ThrottledJsonRpcClient
 
-Use the way from this article: https://medium.com/@jaimersonn/throttling-api-calls-in-a-distributed-environment-76d2789a796d
+Use the way from this [article](https://medium.com/@jaimersonn/throttling-api-calls-in-a-distributed-environment-76d2789a796d).
 
 ## Installation
 
