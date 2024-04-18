@@ -1,8 +1,8 @@
-module JsonRpcClientRb
-  # eth = JsonRpcClientRb::Eth.new('https://1rpc.io/eth')
+module ThrottledJsonRpcClient
+  # eth = ThrottledJsonRpcClient::Eth.new('https://1rpc.io/eth')
   # eth.get_block_by_bumber('latest')
   class Eth
-    include JsonRpcClientRb
+    include ThrottledJsonRpcClient
 
     attr_reader :url
 
@@ -40,7 +40,7 @@ module JsonRpcClientRb
     end
 
     # def rate_limited_block_number
-    #   JsonRpcClientRb.rate_limit(key: "rate_limit:#{url}") do
+    #   ThrottledJsonRpcClient.rate_limit(key: "rate_limit:#{url}") do
     #     block_number
     #   end
     # end

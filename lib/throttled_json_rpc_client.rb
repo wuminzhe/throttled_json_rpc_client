@@ -7,10 +7,10 @@ require "uri"
 require_relative "limiter/distributed_rate_queue"
 require_relative "limiter/limiter"
 
-require_relative "json_rpc_client_rb/version"
-require_relative "json_rpc_client_rb/eth"
+require_relative "throttled_json_rpc_client/version"
+require_relative "throttled_json_rpc_client/eth"
 
-module JsonRpcClientRb
+module ThrottledJsonRpcClient
   class HttpError < StandardError; end
   class JSONRpcError < StandardError; end
 
