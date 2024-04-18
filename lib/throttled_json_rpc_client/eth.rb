@@ -1,9 +1,5 @@
 module ThrottledJsonRpcClient
-  # eth = ThrottledJsonRpcClient::Eth.new('https://1rpc.io/eth')
-  # eth.get_block_by_bumber('latest')
   class Eth
-    include ThrottledJsonRpcClient
-
     attr_reader :url
 
     def initialize(url)
@@ -13,14 +9,14 @@ module ThrottledJsonRpcClient
     def get_block_by_bumber(block_number_or_block_tag, transaction_detail_flag = false)
       rpc_method = "eth_getBlockByNumber"
       params = [block_number_or_block_tag, transaction_detail_flag]
-      request(url, rpc_method, params)
+      ThrottledJsonRpcClient._json_rpc_request(url, rpc_method, params)
     end
 
     # == get_block_by_bumber('latest'])['number']
     def block_number
       rpc_method = "eth_blockNumber"
       params = []
-      request(url, rpc_method, params)
+      ThrottledJsonRpcClient._json_rpc_request(url, rpc_method, params)
     end
 
     #############################
@@ -36,13 +32,19 @@ module ThrottledJsonRpcClient
       words = method.to_s.split("_")
       rpc_method = "eth_#{words[0]}#{words[1..].collect(&:capitalize).join}"
       params = args
-      request(url, rpc_method, params)
+      ThrottledJsonRpcClient._json_rpc_request(url, rpc_method, params)
     end
 
-    # def rate_limited_block_number
-    #   ThrottledJsonRpcClient.rate_limit(key: "rate_limit:#{url}") do
-    #     block_number
-    #   end
-    # end
+    # limit: #{rate} requests / #{interval} seconds
+    def self.create(url, rate: 5, interval: 1, redis_urls: ["redis://localhost:6379/2"])
+      rate_queue = DistributedRateQueue.new(
+        redis_urls: redis_urls,
+        key: "key:#{url}",
+        rate: rate,
+        interval: interval
+      )
+
+      Limiter.new(Eth.new(url), rate_queue)
+    end
   end
 end
