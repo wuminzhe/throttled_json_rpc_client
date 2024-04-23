@@ -41,6 +41,7 @@ threads = []
 end
 threads.map(&:join)
 ```
+see [example](./example.rb)
 
 ## Development
 
