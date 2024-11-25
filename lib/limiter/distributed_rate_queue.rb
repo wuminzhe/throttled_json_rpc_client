@@ -25,6 +25,7 @@ class DistributedRateQueue
 
   def wait_for_next_turn
     wait = lock_manager.get_remaining_ttl_for_resource(key)
+    return if wait.nil?
     return unless wait.positive?
 
     # Logger.log("Waiting for #{wait / 1000.0} seconds", Process.pid)

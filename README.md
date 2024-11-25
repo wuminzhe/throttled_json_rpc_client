@@ -14,29 +14,18 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
 ## Usage
 
-## example1, without rate throttling
-```ruby
-rpc_url = "https://1rpc.io/eth"
-
-eth = JsonRpcClient::Eth.new(rpc_url)
-
-p eth.block_number
-```
-
-## example2, with rate throttling
-> The rate limit on the server is called Rate Limiting, and the rate limit on the client is called Rate Throttling.
-
 This rate throttling can be used in multi-threaded, multi-process, multi-machine environments.
+
 ```ruby
-rpc_url = "https://1rpc.io/eth"
+rpc_url = "https://eth.llamarpc.com"
 
 # default equals to ThrottledJsonRpcClient::Eth.new(url, rate: 5, interval: 1, redis_urls: ["redis://localhost:6379/2"])
-eth = ThrottledJsonRpcClient::Eth.new(rpc_url)
+client = ThrottledJsonRpcClient::Client.new(rpc_url)
 
 threads = []
 10.times do
   threads << Thread.new do
-    p eth.block_number
+    p client.call("eth_getBlockByNumber", ["0x1234", false])
   end
 end
 threads.map(&:join)

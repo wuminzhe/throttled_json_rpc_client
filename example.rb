@@ -1,17 +1,17 @@
-require "logger"
+rpc_url = "https://eth.llamarpc.com"
 
-rpc_url = "https://1rpc.io/eth"
-
-eth = ThrottledJsonRpcClient::Eth.new(
+# limit: 1 request / 5 seconds
+client = ThrottledJsonRpcClient::Client.new(
   rpc_url,
-  redis_urls: ["redis://redis:6379/2"],
-  logger: Logger.new($stdout, level: :debug)
+  rate: 1,
+  interval: 5,
+  redis_urls: ["redis://localhost:6379/2"]
 )
 
 threads = []
 10.times do
   threads << Thread.new do
-    p eth.block_number
+    p client.call("eth_blockNumber", [])
   end
 end
 threads.map(&:join)
