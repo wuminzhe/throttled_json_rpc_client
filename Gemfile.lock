@@ -3,6 +3,7 @@ PATH
   specs:
     throttled_json_rpc_client (0.2.0)
       faraday
+      redis
       redlock
 
 GEM
@@ -29,6 +30,8 @@ GEM
     racc (1.7.3)
     rainbow (3.1.1)
     rake (13.1.0)
+    redis (5.1.0)
+      redis-client (>= 0.17.0)
     redis-client (0.21.1)
       connection_pool
     redlock (2.0.6)
@@ -62,6 +65,7 @@ GEM
     rubocop-ast (1.30.0)
       parser (>= 3.2.1.0)
     ruby-progressbar (1.13.0)
+    timecop (0.9.10)
     unicode-display_width (2.5.0)
     uri (1.0.2)
 
@@ -74,6 +78,7 @@ DEPENDENCIES
   rspec (~> 3.0)
   rubocop (~> 1.21)
   throttled_json_rpc_client!
+  timecop (~> 0.9.10)
 
 BUNDLED WITH
    2.5.3
