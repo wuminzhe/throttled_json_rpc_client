@@ -81,5 +81,26 @@ RSpec.describe DistributedRateQueue do
       queue = described_class.new(redis_urls: redis_urls, key: key, rate: 4, interval: 1)
       expect(queue.lock_duration).to eq(250)
     end
+
+    it "properly handles errors inside the block" do
+      expect do
+        subject.shift do
+          raise StandardError, "Test error"
+        end
+      end.to raise_error(StandardError, "Test error")
+
+      # Verify that the queue still works after an error
+      execution_times = []
+      start_time = Time.now
+
+      2.times do
+        subject.shift do
+          execution_times << Time.now - start_time
+        end
+      end
+
+      # Verify the rate limiting still works
+      expect(execution_times[1] - execution_times[0]).to be >= 0.5
+    end
   end
 end
